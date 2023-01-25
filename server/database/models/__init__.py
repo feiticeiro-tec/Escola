@@ -1,4 +1,4 @@
-__all__ = ['Aluno','Sala','Usuario','Grupo']
+__all__ = ['Aluno', 'Sala', 'Usuario', 'Grupo']
 from .aluno import Aluno
 from .sala import Sala
 from .usuario import Usuario
