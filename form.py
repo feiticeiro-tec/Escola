@@ -67,16 +67,21 @@ class GenericModel:
 
 class FormUsuario(GenericModel):
 
-    @property
-    def model(self):
-        return api.model('Usuario', {
-            'email': fields.String,
-            'professor': fields.Boolean
-        })
+    model = api.model('Usuario', {
+        'email': fields.String,
+        'professor': fields.Boolean,
+        'primeiro_nome': fields.String,
+        'ultimo_nome': fields.String,
+        'nascimento': fields.Date,
+        'estado': fields.String,
+        'cidade': fields.String,
+        'logradouro': fields.String,
+        'numero': fields.String
+    })
 
-    @property
-    def model_list(self):
-        return api.model('Usuarios', {'usuarios': fields.List(fields.Nested(self.model))})
+    model_list = api.model('Usuarios', {
+        'usuarios': fields.List(fields.Nested(model))
+    })
 
     def email_validate(value):
         if not re.match(r'[\W|\D]+@[\W|\D]+.[\W|\D]+', value):
@@ -117,7 +122,7 @@ class FormLogin(GenericModel):
 
     @property
     def post_response(self):
-        return api.model('Auth', {'email': fields.String, 'professor': fields.Boolean})
+        return api.model('Auth', {'usuario': fields.Nested(FormUsuario.model)})
 
     @property
     def post(self):

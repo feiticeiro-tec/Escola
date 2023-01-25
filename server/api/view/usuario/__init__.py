@@ -9,7 +9,6 @@ form_usuario = FormUsuario()
 
 
 @np_usuario.route('/')
-@np_usuario.route('/<int:id>')
 class Usuario(Resource):
     @form_usuario.set_model_get(np_usuario)
     def get(self, id=None):
@@ -21,3 +20,11 @@ class Usuario(Resource):
         else:
             usuarios = User.query.all()
         return marshal({'usuarios': usuarios}, form_usuario.model_list)
+
+@np_usuario.route('/<int:id>')
+class UsuarioControl(Usuario):
+
+    @form_usuario.set_model_put(np_usuario)
+    def put(self):
+        ...
+

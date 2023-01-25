@@ -8,6 +8,15 @@ class Usuario(db.Model, Default):
     senha = db.Column(db.String(255))
     professor = db.Column(db.Boolean, default=False)
 
+    primeiro_nome = db.Column(db.String(255))
+    ultimo_nome = db.Column(db.String(255))
+    nascimento = db.Column(db.Date)
+    estado = db.Column(db.String(255))
+    cidade = db.Column(db.String(255))
+    logradouro = db.Column(db.String(255))
+    numero = db.Column(db.String(255))
+
+
     def __init__(self, email, senha, professor):
         super().__init__(
             email=email,
