@@ -50,6 +50,7 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
 ## PROVA
   > Terá as informações do "teste" aplicado justo com as informações do alunos
   
+###### ROTAS
   - [ ] GET
   - [ ] POST
   - [ ] DELETE
@@ -58,6 +59,7 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
 ## SALA
   > Terá as informações de alunos e professor e provas aplicadas
   
+###### ROTAS
   - [ ] GET
   - [ ] POST
   - [ ] PUT
@@ -68,6 +70,7 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
   
   > Deverá da uma serie de informações sobre a prova aplicada como, % de acerto ate o momento, e tempo medio de cada aluno nas questões
 
+###### EMIT
   - [ ] SINCRONIZAÇÃO
   - [ ] START
   - [ ] PAUSA
