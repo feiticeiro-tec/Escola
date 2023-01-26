@@ -9,6 +9,16 @@ Projeto para homologação de **plugins** [Fet-UI](https://github.com/feiticeiro
 Além da homologação, tambem será testado um method de **aceleração de desenvolvimento**.  
 O method é uma total presunção minha e sem conhecimento previo da existencia de ferramenta ou algo do tipo.  
 
+## Súmario
+- [*Usuario*](https://github.com/feiticeiro-tec/Escola#usu%C3%A1rio)
+- [*Grupo*](https://github.com/feiticeiro-tec/Escola#grupo)
+- [*Teste*](https://github.com/feiticeiro-tec/Escola#teste)
+- [*Prova*](https://github.com/feiticeiro-tec/Escola#prova)
+- [*Sala*](https://github.com/feiticeiro-tec/Escola#sala)
+- [*Socket*](https://github.com/feiticeiro-tec/Escola#socket-aula)
+- [*Grupo Alvo*](https://github.com/feiticeiro-tec/Escola#grupo-alvo)
+- [*Noticia*](https://github.com/feiticeiro-tec/Escola#not%C3%ADcia)
+- [*Check-in*](https://github.com/feiticeiro-tec/Escola#check---in)
 
 ## *USUÁRIO*
 
