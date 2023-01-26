@@ -2,10 +2,8 @@
 Projeto para homologação dos plugins de estudos de aceleramento de desenvolvimento de api
 
 ## USUÁRIO
-
-  > Um usuario pertence a um grupo de DIRETOR, PROFESSOR OU ALUNO
- 
-  > O usuario é obrigado a preencher o cadastro.
+> Um usuario pertence a um grupo de *ADM*, *DIRETOR*, *PROFESSOR* OU *ALUNO*.  
+> O usuario é **obrigado** a preencher o cadastro.
 
 ###### ROTAS
   - [ ] GET
@@ -14,18 +12,12 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
   - [ ] Recuperação de conta
   - [ ] Edição de perfil
 
-
-
 ## GRUPO 
-  > Haverá 4 Grupos, ADM, DIRETOR, PROFESSOR e ALUNO
-
-  > ADM - Será o responsavel pelo sistema e terá total liberdade.
-  
-  > DIRETOR - Será responsavel por uma ou mais escolas e terá total liberdade dentro dela.
-
-  > PROFESSOR - Será responsavel por uma ou mais salas de aula e tera total liberdade dentro dela.
-
-  > ALUNO - Sera um membro de uma ou mais escolas e fará parte de uma ou mais salas de aula
+> Haverá **4 Grupos**, ADM, DIRETOR, PROFESSOR e ALUNO.   
+> **ADM** - *Será o responsavel pelo sistema e terá total liberdade.*  
+> **DIRETOR** - *Será responsavel por uma ou mais escolas e terá total liberdade dentro dela.*  
+> **PROFESSOR** - *Será responsavel por uma ou mais salas de aula e tera total liberdade dentro dela.*  
+> **ALUNO** - *Sera um membro de uma ou mais escolas e fará parte de uma ou mais salas de aula.*
 
 ###### ROTAS
   - [ ] GET
@@ -34,11 +26,9 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
   - [ ] DELETE
 
 ## TESTE
-  > Será os modelos e "provas" aplicadas
-  
-  > Tera questoes de multipla escolhas ou de escrita
-  
-  > ESCRITA - As questoes de escrita esperará a avaliação do professor para concluir a "prova"
+> Será os modelos e "*provas*" aplicadas.  
+> Tera questoes de **multipla** escolhas ou de **escrita**.  
+> ESCRITA - *As questoes de escrita esperará a avaliação do professor para concluir a "prova".*  
 
 ###### ROTAS
   - [ ] CLOSE
@@ -48,7 +38,7 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
   - [ ] DELETE
 
 ## PROVA
-  > Terá as informações do "teste" aplicado justo com as informações do alunos
+  > Terá as informações do "*teste*" aplicado justo com as informações do alunos
   
 ###### ROTAS
   - [ ] GET
@@ -65,10 +55,10 @@ Projeto para homologação dos plugins de estudos de aceleramento de desenvolvim
   - [ ] PUT
   - [ ] DELETE
 
+
 ## SOCKET AULA
-  > Será o sistema pricipal de aplicação de provas
-  
-  > Deverá da uma serie de informações sobre a prova aplicada como, % de acerto ate o momento, e tempo medio de cada aluno nas questões
+> Será o sistema pricipal de aplicação de provas.  
+> Deverá da uma serie de informações sobre a prova aplicada como, % de acerto ate o momento, e tempo medio de cada aluno nas questões
 
 ###### EMIT
   - [ ] SINCRONIZAÇÃO
