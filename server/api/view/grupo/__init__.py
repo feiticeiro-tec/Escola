@@ -23,6 +23,7 @@ class Grupo(Resource):
     
     @form_grupos.set_model_get(np_grupo)
     def get(self,grupo_id=None):
+        """Vai retornar uma lista de grupos"""
         if grupo_id:
             grupo = select_grupos(id)
             if not grupo:
@@ -37,6 +38,7 @@ class Grupo(Resource):
     @form_grupos.set_model_put(np_grupo)
     @validate_id_group
     def put(self,grupo_id,grupo):
+        """Vai atualizar o grupo do usuario."""
         data= form_grupos.put.parse_args()
         user = data['user']
         user.grupo_id = grupo_id
@@ -47,5 +49,6 @@ class Grupo(Resource):
 class GrupoUsers(Resource):
     @form_grupos_users.set_model_get(np_grupo)
     def get(self,grupo_id):
+        """Vai retonar uma lista de usuarios que pertence ao grupo"""
         users= select_users_group(grupo_id)
         return marshal({"usuarios":users},form_grupos_users.get_response)
