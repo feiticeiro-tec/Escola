@@ -13,5 +13,5 @@ class Servidor(Flask):
 
         with self.app_context():
             self.config.from_prefixed_env()
-            self.api = self.init_api()
             self.db = self.init_db()
+            self.api = self.init_api()
