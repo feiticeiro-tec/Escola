@@ -6,7 +6,7 @@ class Usuario(db.Model, Default):
     __tablename__ = 'Usuario'
     email = db.Column(db.String(255), unique=True)
     senha = db.Column(db.String(255))
-    grupo = db.Column(db.Integer,db.ForeignKey('Grupo.id'))
+    grupo_id = db.Column(db.Integer,db.ForeignKey('Grupo.id'))
 
     primeiro_nome = db.Column(db.String(255))
     ultimo_nome = db.Column(db.String(255))
@@ -17,10 +17,10 @@ class Usuario(db.Model, Default):
     numero = db.Column(db.String(255))
 
 
-    def __init__(self, email, senha, grupo):
+    def __init__(self, email, senha, grupo_id):
         super().__init__(
             email=email,
-            grupo=int(grupo)
+            grupo_id=int(grupo_id)
         )
         self.set_password(senha)
     
