@@ -2,15 +2,25 @@ from flask_restx import Resource,marshal,abort
 from server.api import api
 from form import FormGrupo,FormGrupoUsers
 from ...utils import select_grupos,select_users_group
+from functools import wraps
 
 np_grupo = api.namespace('grupo')
 form_grupos = FormGrupo()
 form_grupos_users = FormGrupoUsers()
 
 
-@np_grupo.route('/')
+@np_grupo.route('/',methods=['GET'])
 @np_grupo.route('/<int:grupo_id>')
 class Grupo(Resource):
+    def validate_id_group(f):
+        @wraps(f)
+        def capture_args(*args,**kw):
+            grupo = select_grupos(kw['grupo_id'])
+            if not grupo:
+                abort(404,'Grupo não encontrado!')
+            return f(*args,**kw,grupo=grupo)
+        return capture_args
+    
     @form_grupos.set_model_get(np_grupo)
     def get(self,grupo_id=None):
         if grupo_id:
@@ -23,6 +33,15 @@ class Grupo(Resource):
             grupos = {'grupos':select_grupos()}
         
         return marshal(grupos,form_grupos.get_response)
+    
+    @form_grupos.set_model_put(np_grupo)
+    @validate_id_group
+    def put(self,grupo_id,grupo):
+        data= form_grupos.put.parse_args()
+        user = data['user']
+        user.grupo_id = grupo_id
+        user.save()
+        return marshal(user,form_grupos.put_response)
 
 @np_grupo.route('/<int:grupo_id>/usuarios/')
 class GrupoUsers(Resource):
