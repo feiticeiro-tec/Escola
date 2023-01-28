@@ -16,6 +16,7 @@ form_usuario = FormUsuario()
 class Usuario(Resource):
     @form_usuario.set_model_get(np_usuario)
     def get(self, user_id=None):
+        """Vai retornar uma lista de usuarios."""
         if user_id:
             user = User.query.filter(User.id == user_id).first()
             if not user:
@@ -37,6 +38,7 @@ class Usuario(Resource):
     @form_usuario.set_model_put(np_usuario)
     @validate_user
     def put(self,user_id,user):
+        """vai atualizar as informações do usuario."""
         data = form_usuario.put.parse_args()
         user.update(data)
         user.save()
@@ -46,6 +48,7 @@ class Usuario(Resource):
     @form_usuario.set_model_patch(np_usuario)
     @validate_user
     def patch(self,user_id,user):
+        """Vai atualizar a senha do usuario"""
         data = form_usuario.patch.parse_args()
         if not user.check_password(data['senha_atual']):
             abort(400,{"errors":{'senha_atual':"Senha Invalida!"}})
@@ -55,5 +58,6 @@ class Usuario(Resource):
     
     @validate_user
     def delete(self,user_id,user):
+        """Vai deletar o usuario"""
         user.delete()
         return {},204
