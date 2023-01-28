@@ -3,7 +3,7 @@ from flask_restx import Resource, marshal, abort
 from server.api import api
 from server.database.models import Usuario as User
 from functools import wraps
-from server.form import FormUsuario
+from server.api.form import FormUsuario
 
 
 np_usuario = api.namespace('usuario')

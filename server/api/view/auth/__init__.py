@@ -2,7 +2,7 @@ from flask_restx import Resource, marshal, abort
 from server.api import api
 from server.exceptions import NotFound, MatchError
 from server.database.models import Usuario
-from server.form import FormAuth,FormRegister
+from server.api.form import FormAuth,FormRegister
 
 np_auth = api.namespace("auth")
 
