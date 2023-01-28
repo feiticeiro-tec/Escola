@@ -127,6 +127,18 @@ class FormUsuario(GenericModel):
             raise ValueError('Email já em uso!')
 
         return value
+    
+    def user_validate(id):
+        try:
+            id = int(id)
+        except:
+            raise ValueError('ID Invalido!')
+
+        user = Usuario.query.get(id)
+        if not user:
+            raise ValueError('Usuario não existe!')
+        return user
+
 
     @property
     def put_response(self):
@@ -220,6 +232,17 @@ class FormGrupo(GenericModel):
     @property
     def get_response(self):
         return self.model_list
+    
+
+    @property
+    def put(self):
+        form = reqparse.RequestParser()
+        form.add_argument('user',type=FormUsuario.user_validate,required=True)
+        return form
+    
+    @property
+    def put_response(self):
+        return FormUsuario.model
 
 class FormGrupoUsers(GenericModel):
     model_list = api.model('GruposUsers',{
