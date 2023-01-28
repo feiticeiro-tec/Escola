@@ -33,7 +33,7 @@ class Register(Resource):
     def post(self):
         data = FormRegister().post.parse_args()
         user = Usuario(
-            email=data['email'], senha=data['senha'], grupo_id=data['professor'])
+            email=data['email'], senha=data['senha'], grupo_id=data['grupo_id'])
         user.add()
         user.save()
         return marshal(user, FormRegister().post_response), 201
