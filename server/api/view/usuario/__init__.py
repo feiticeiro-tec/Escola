@@ -11,7 +11,7 @@ form_usuario = FormUsuario()
 
 
 
-@np_usuario.route('/')
+@np_usuario.route('/',methods=['GET'])
 @np_usuario.route('/<int:user_id>')
 class Usuario(Resource):
     @form_usuario.set_model_get(np_usuario)
@@ -25,8 +25,6 @@ class Usuario(Resource):
             usuarios = User.query.all()
         return marshal({'usuarios': usuarios}, form_usuario.get_response)
 
-@np_usuario.route('/<int:user_id>')
-class UsuarioControl(Usuario):
     def validate_user(f):
         @wraps(f)
         def capture_args(*args,**kw):
