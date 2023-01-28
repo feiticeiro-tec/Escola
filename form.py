@@ -2,10 +2,12 @@ from flask import request
 from flask_restx import Resource, marshal, abort, reqparse, inputs
 from server.database.models import Usuario
 from server.api import api
+from server.api.utils import select_grupos
 from flask_restx import fields
 import re
 from functools import wraps
 
+grupos = select_grupos()
 
 class Validators():
     def match_value(field) -> callable:
@@ -90,7 +92,7 @@ class FormUsuario(GenericModel):
     model = api.model('Usuario', {
         'id':fields.Integer,
         'email': fields.String,
-        'professor': fields.Boolean,
+        'grupo': fields.Integer,
         'primeiro_nome': fields.String,
         'ultimo_nome': fields.String,
         'nascimento': fields.Date,
@@ -198,5 +200,5 @@ class FormRegister(GenericModel):
         form.add_argument('senha', type=str, required=True, location='form')
         form.add_argument('confirmar_senha', type=Validators.match_value(
             'senha'), required=True, location='form')
-        form.add_argument('professor', choices=('0', '1'))
+        form.add_argument('grupo', choices=[str(grupo.id) for grupo in grupos], help=str([f'{grupo.id} - {grupo.descricao}' for grupo in grupos]))
         return form
