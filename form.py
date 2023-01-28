@@ -43,7 +43,7 @@ class GenericModel:
     def set_model_delete(self, namespace):
         def capture_func(f):
             @wraps(f)
-            @namespace.marshal_with(self.delete_response, code=200)
+            @namespace.doc({},code=204)
             @namespace.expect(self.delete)
             def capture_args(*args, **kw):
                 return f(*args, **kw)
@@ -160,6 +160,11 @@ class FormUsuario(GenericModel):
 
     @property
     def get(self) -> reqparse.RequestParser:
+        form = reqparse.RequestParser()
+        return form
+
+    @property
+    def delete(self) -> reqparse.RequestParser:
         form = reqparse.RequestParser()
         return form
 
