@@ -24,7 +24,7 @@ class Grupo(Resource):
         
         return marshal(grupos,form_grupos.get_response)
 
-@np_grupo.route('/usuarios/<int:grupo_id>')
+@np_grupo.route('/<int:grupo_id>/usuarios/')
 class GrupoUsers(Resource):
     @form_grupos_users.set_model_get(np_grupo)
     def get(self,grupo_id):
