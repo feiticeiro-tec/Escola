@@ -10,7 +10,7 @@ form_grupos_users = FormGrupoUsers()
 
 
 @np_grupo.route('/',methods=['GET'])
-@np_grupo.route('/<int:grupo_id>')
+@np_grupo.route('/<int:grupo_id>',methods=['PUT'])
 class Grupo(Resource):
     def validate_id_group(f):
         @wraps(f)
@@ -22,10 +22,11 @@ class Grupo(Resource):
         return capture_args
     
     @form_grupos.set_model_get(np_grupo)
-    def get(self,grupo_id=None):
+    def get(self):
         """Vai retornar uma lista de grupos"""
+        grupo_id = form_grupos.get.parse_args()['grupo_id']
         if grupo_id:
-            grupo = select_grupos(id)
+            grupo = select_grupos(grupo_id)
             if not grupo:
                 abort(404,'Grupo não encontrado!')
             else:

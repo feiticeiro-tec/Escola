@@ -227,6 +227,7 @@ class FormGrupo(GenericModel):
     @property
     def get(self):
         form = reqparse.RequestParser()
+        form.add_argument('grupo_id',type=int)
         return form
     
     @property
