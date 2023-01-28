@@ -1,8 +1,9 @@
-from flask_restx import Resource,Namespace,marshal,abort
+from flask_restx import Resource,marshal,abort
+from server.api import api
 from form import FormGrupo
 from ...utils import select_grupos
 
-np_grupo = Namespace('grupo')
+np_grupo = api.namespace('grupo')
 form_grupos = FormGrupo()
 
 
@@ -16,8 +17,8 @@ class Grupo(Resource):
             if not grupo:
                 abort(404,'Grupo não encontrado!')
             else:
-                grupos = [grupo]
+                grupos = {'grupos':[grupo]}
         else:
-            grupos = select_grupos()
+            grupos = {'grupos':select_grupos()}
         
         return marshal(grupos,form_grupos.get_response)
