@@ -12,11 +12,12 @@ form_usuario = FormUsuario()
 
 
 @np_usuario.route('/')
+@np_usuario.route('/<int:user_id>')
 class Usuario(Resource):
     @form_usuario.set_model_get(np_usuario)
-    def get(self, id=None):
-        if id:
-            user = User.query.filter(User.id == id).first()
+    def get(self, user_id=None):
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
             if not user:
                 abort(404, 'Usuario não encontrado!')
             usuarios = [user]
@@ -29,10 +30,12 @@ class UsuarioControl(Usuario):
     def validate_user(f):
         @wraps(f)
         def capture_args(*args,**kw):
+            print(args)
             user:User = User.query.get(kw['user_id'])
             if not user:
                 abort(404, 'Usuario não encontrado!')
             return f(*args,**kw, user=user)
+        print('ij')
         return capture_args
 
     @form_usuario.set_model_put(np_usuario)
