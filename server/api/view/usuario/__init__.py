@@ -3,10 +3,12 @@ from flask_restx import Resource, marshal, abort
 from server.api import api
 from form import FormUsuario
 from server.database.models import Usuario as User
+from functools import wraps
 
 
 np_usuario = api.namespace('Usuario')
 form_usuario = FormUsuario()
+
 
 
 @np_usuario.route('/')
@@ -24,34 +26,35 @@ class Usuario(Resource):
 
 @np_usuario.route('/<int:id>')
 class UsuarioControl(Usuario):
-
-    @staticmethod
-    def validate_user(id,form_method) -> tuple[User,dict]:
-        data = form_method.parse_args()
-        user:User = User.query.get(id)
-        if not user:
-            abort(404, 'Usuario não encontrado!')
-        return user,data
+    def validate_user(f):
+        @wraps(f)
+        def capture_args(*args,**kw):
+            user:User = User.query.get(kw['id'])
+            if not user:
+                abort(404, 'Usuario não encontrado!')
+            return f(*args,**kw, user=user)
+        return capture_args
 
     @form_usuario.set_model_put(np_usuario)
-    def put(self,id):
-        user, data = self.validate_user(id=id,form_method=form_usuario.put)
+    @validate_user
+    def put(self,id,user):
+        data = form_usuario.put.parse_args()
         user.update(data)
         user.save()
 
         return marshal(user, form_usuario.put_response)
     
     @form_usuario.set_model_patch(np_usuario)
-    def patch(self,id):
-        user, data = self.validate_user(id=id,form_method=form_usuario.patch)
+    @validate_user
+    def patch(self,id,user):
+        data = form_usuario.patch.parse_args()
         if not user.check_password(data['senha_atual']):
-            return jsonify({
-                "errors":{
-                    'senha_atual':"Senha Invalida!"
-                }
-            }),400
+            abort(400,{"errors":{'senha_atual':"Senha Invalida!"}})
         user.set_password(data['nova_senha'])
         user.save()
         return marshal(user, form_usuario.patch_response)
-
-
+    
+    @validate_user
+    def delete(self,id,user):
+        user.delete()
+        return {},204
