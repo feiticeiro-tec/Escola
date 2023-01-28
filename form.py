@@ -183,7 +183,7 @@ class FormUsuario(GenericModel):
         return form
 
 
-class FormLogin(GenericModel):
+class FormAuth(GenericModel):
 
     @property
     def post_response(self):

@@ -2,19 +2,19 @@ from flask_restx import Resource, marshal, abort
 from server.api import api
 from server.exceptions import NotFound, MatchError
 from server.database.models import Usuario
-from form import FormLogin, FormRegister
+from form import FormAuth, FormRegister
 
-np_login = api.namespace("login")
+np_auth = api.namespace("auth")
 
-form_login = FormLogin()
+form_auth = FormAuth()
 
 
-@np_login.route('/')
+@np_auth.route('/')
 class Login(Resource):
-    @form_login.set_model_post(np_login)
+    @form_auth.set_model_post(np_auth)
     def post(self):
         """Login de usuario."""
-        data = FormLogin().post.parse_args()
+        data = form_auth.post.parse_args()
         try:
             user = Usuario.login(**data)
         except NotFound:
@@ -22,15 +22,15 @@ class Login(Resource):
         except MatchError:
             abort(400, 'Email ou Senha Invalida!')
 
-        return marshal(user, FormLogin().post_response), 201
+        return marshal(user, form_auth.post_response), 201
 
 
 form_register = FormRegister()
 
 
-@np_login.route('/register')
+@np_auth.route('/register')
 class Register(Resource):
-    @form_register.set_model_post(np_login)
+    @form_register.set_model_post(np_auth)
     def post(self):
         """Registro de usuario."""
         data = FormRegister().post.parse_args()
