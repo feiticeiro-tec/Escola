@@ -13,6 +13,7 @@ form_login = FormLogin()
 class Login(Resource):
     @form_login.set_model_post(np_login)
     def post(self):
+        """Login de usuario."""
         data = FormLogin().post.parse_args()
         try:
             user = Usuario.login(**data)
@@ -31,6 +32,7 @@ form_register = FormRegister()
 class Register(Resource):
     @form_register.set_model_post(np_login)
     def post(self):
+        """Registro de usuario."""
         data = FormRegister().post.parse_args()
         user = Usuario(
             email=data['email'], senha=data['senha'], grupo_id=data['grupo_id'])
