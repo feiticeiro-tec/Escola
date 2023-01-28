@@ -24,12 +24,12 @@ class Usuario(Resource):
             usuarios = User.query.all()
         return marshal({'usuarios': usuarios}, form_usuario.get_response)
 
-@np_usuario.route('/<int:id>')
+@np_usuario.route('/<int:user_id>')
 class UsuarioControl(Usuario):
     def validate_user(f):
         @wraps(f)
         def capture_args(*args,**kw):
-            user:User = User.query.get(kw['id'])
+            user:User = User.query.get(kw['user_id'])
             if not user:
                 abort(404, 'Usuario não encontrado!')
             return f(*args,**kw, user=user)
@@ -37,7 +37,7 @@ class UsuarioControl(Usuario):
 
     @form_usuario.set_model_put(np_usuario)
     @validate_user
-    def put(self,id,user):
+    def put(self,user_id,user):
         data = form_usuario.put.parse_args()
         user.update(data)
         user.save()
@@ -46,7 +46,7 @@ class UsuarioControl(Usuario):
     
     @form_usuario.set_model_patch(np_usuario)
     @validate_user
-    def patch(self,id,user):
+    def patch(self,user_id,user):
         data = form_usuario.patch.parse_args()
         if not user.check_password(data['senha_atual']):
             abort(400,{"errors":{'senha_atual':"Senha Invalida!"}})
@@ -55,6 +55,6 @@ class UsuarioControl(Usuario):
         return marshal(user, form_usuario.patch_response)
     
     @validate_user
-    def delete(self,id,user):
+    def delete(self,user_id,user):
         user.delete()
         return {},204
