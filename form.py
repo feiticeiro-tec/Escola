@@ -175,6 +175,7 @@ class FormUsuario(GenericModel):
     @property
     def get(self) -> reqparse.RequestParser:
         form = reqparse.RequestParser()
+        form.add_argument('user_id',type=int)
         return form
 
     @property
@@ -192,8 +193,7 @@ class FormAuth(GenericModel):
     @property
     def post(self):
         form = reqparse.RequestParser()
-        form.add_argument('email', type=Validators.email(),
-                          required=True, location='form')
+        form.add_argument('email', type=Validators.email(),required=True, location='form')
         form.add_argument('senha', type=str, required=True, location='form')
         return form
 

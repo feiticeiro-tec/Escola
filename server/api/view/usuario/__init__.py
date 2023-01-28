@@ -12,11 +12,12 @@ form_usuario = FormUsuario()
 
 
 @np_usuario.route('/',methods=['GET'])
-@np_usuario.route('/<int:user_id>')
+@np_usuario.route('/<int:user_id>',methods=['PUT','PATCH','DELETE'])
 class Usuario(Resource):
     @form_usuario.set_model_get(np_usuario)
-    def get(self, user_id=None):
+    def get(self):
         """Vai retornar uma lista de usuarios."""
+        user_id = form_usuario.get.parse_args()['user_id']
         if user_id:
             user = User.query.filter(User.id == user_id).first()
             if not user:
