@@ -20,9 +20,10 @@ class Usuario(db.Model, Default):
     def __init__(self, email, senha, professor):
         super().__init__(
             email=email,
-            senha=senha,
             professor=int(professor)
         )
+        self.set_password(senha)
+    
 
     @staticmethod
     def login(email, senha):
@@ -35,5 +36,19 @@ class Usuario(db.Model, Default):
 
         return user
 
+    def set_password(self,senha):
+        self.senha = senha
+
     def check_password(self, senha):
         return self.senha == senha
+    
+    def update(self,data):
+        for key,valor in data.items():
+            if key == 'senha':
+                continue
+            if valor:
+                setattr(self,key,valor)
+        
+        senha = data.get('senha')
+        if senha:
+            self.senha = senha

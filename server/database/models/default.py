@@ -10,13 +10,14 @@ class Default():
 
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
-        self.utc_c = datetime.utcnow()
+        
 
     def save(self):
         self.utc_u = datetime.utcnow()
         db.session.commit()
 
     def add(self):
+        self.utc_c = datetime.utcnow()
         db.session.add(self)
 
     def frash(self):
