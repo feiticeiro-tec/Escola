@@ -4,5 +4,5 @@ api = Api()
 
 def init_api(app):
     api.init_app(app)
-    from server.api.view import login,usuario
+    from server.api.view import login,usuario,grupo
     return api

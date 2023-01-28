@@ -202,3 +202,23 @@ class FormRegister(GenericModel):
             'senha'), required=True, location='form')
         form.add_argument('grupo', choices=[str(grupo.id) for grupo in grupos], help=str([f'{grupo.id} - {grupo.descricao}' for grupo in grupos]))
         return form
+
+class FormGrupo(GenericModel):
+    model = api.model('Grupo',{
+        'id':fields.Integer,
+        'descricao':fields.String
+    })
+    model_list = api.model('Grupos',{
+        'grupos':fields.List(fields.Nested(model))
+    })
+
+    @property
+    def get(self):
+        form = reqparse.RequestParser()
+        return form
+    
+    @property
+    def get_response(self):
+        return self.model_list
+
+
