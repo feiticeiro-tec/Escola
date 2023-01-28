@@ -1,9 +1,9 @@
 from flask import jsonify
 from flask_restx import Resource, marshal, abort
 from server.api import api
-from form import FormUsuario
 from server.database.models import Usuario as User
 from functools import wraps
+from server.form import FormUsuario
 
 
 np_usuario = api.namespace('usuario')

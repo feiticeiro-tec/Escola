@@ -1,7 +1,7 @@
 from flask_restx import Resource,marshal,abort
 from server.api import api
-from form import FormGrupo,FormGrupoUsers
-from ...utils import select_grupos,select_users_group
+from server.api.utils import select_grupos,select_users_group
+from server.form import FormGrupo,FormGrupoUsers
 from functools import wraps
 
 np_grupo = api.namespace('grupo')
