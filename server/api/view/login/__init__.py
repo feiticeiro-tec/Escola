@@ -1,11 +1,7 @@
-from flask import jsonify
-from flask_restx import Resource, marshal, abort, reqparse, inputs
-from flask_restx._http import HTTPStatus
+from flask_restx import Resource, marshal, abort
 from server.api import api
 from server.exceptions import NotFound, MatchError
-import pdb
 from server.database.models import Usuario
-import re
 from form import FormLogin, FormRegister
 
 np_login = api.namespace("login")
