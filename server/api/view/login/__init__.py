@@ -8,7 +8,7 @@ from server.database.models import Usuario
 import re
 from form import FormLogin, FormRegister
 
-np_login = api.namespace("Login")
+np_login = api.namespace("login")
 
 form_login = FormLogin()
 

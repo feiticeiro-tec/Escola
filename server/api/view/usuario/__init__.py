@@ -6,7 +6,7 @@ from server.database.models import Usuario as User
 from functools import wraps
 
 
-np_usuario = api.namespace('Usuario')
+np_usuario = api.namespace('usuario')
 form_usuario = FormUsuario()
 
 
@@ -41,7 +41,7 @@ class UsuarioControl(Usuario):
         data = form_usuario.put.parse_args()
         user.update(data)
         user.save()
-
+        
         return marshal(user, form_usuario.put_response)
     
     @form_usuario.set_model_patch(np_usuario)
