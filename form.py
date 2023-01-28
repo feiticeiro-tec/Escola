@@ -92,7 +92,7 @@ class FormUsuario(GenericModel):
     model = api.model('Usuario', {
         'id':fields.Integer,
         'email': fields.String,
-        'grupo': fields.Integer,
+        'grupo_id': fields.Integer,
         'primeiro_nome': fields.String,
         'ultimo_nome': fields.String,
         'nascimento': fields.Date,
@@ -200,7 +200,7 @@ class FormRegister(GenericModel):
         form.add_argument('senha', type=str, required=True, location='form')
         form.add_argument('confirmar_senha', type=Validators.match_value(
             'senha'), required=True, location='form')
-        form.add_argument('grupo', choices=[str(grupo.id) for grupo in grupos], help=str([f'{grupo.id} - {grupo.descricao}' for grupo in grupos]))
+        form.add_argument('grupo_id', choices=[str(grupo.id) for grupo in grupos], help=str([f'{grupo.id} - {grupo.descricao}' for grupo in grupos]))
         return form
 
 class FormGrupo(GenericModel):
@@ -221,4 +221,16 @@ class FormGrupo(GenericModel):
     def get_response(self):
         return self.model_list
 
+class FormGrupoUsers(GenericModel):
+    model_list = api.model('GruposUsers',{
+        'usuarios':fields.List(fields.Nested(FormUsuario.model))
+    })
 
+    @property
+    def get(self):
+        form = reqparse.RequestParser()
+        return form
+    
+    @property
+    def get_response(self):
+        return self.model_list
