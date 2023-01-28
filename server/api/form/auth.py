@@ -2,8 +2,8 @@ from flask_restx import fields, reqparse
 from .generic_model import GenericModel
 from .usuario import FormUsuario
 from .validators import Validators
-from ..api import api
-from ..api.utils import select_grupos
+from server.api import api
+from server.api.utils import select_grupos
 
 grupos = select_grupos()
 

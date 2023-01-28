@@ -2,8 +2,8 @@ import re
 from flask_restx import fields, reqparse, inputs
 from .generic_model import GenericModel
 from .validators import Validators
-from ..api import api
-from ..database.models import Usuario
+from server.api import api
+from server.database.models import Usuario
 
 
 class FormUsuario(GenericModel):

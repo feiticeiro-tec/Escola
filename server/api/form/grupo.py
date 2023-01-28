@@ -1,7 +1,7 @@
 from flask_restx import fields,reqparse
 from .generic_model import GenericModel
 from .usuario import FormUsuario
-from ..api import api
+from server.api import api
 
 class FormGrupo(GenericModel):
     model = api.model('Grupo',{
