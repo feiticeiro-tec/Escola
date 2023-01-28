@@ -30,12 +30,10 @@ class UsuarioControl(Usuario):
     def validate_user(f):
         @wraps(f)
         def capture_args(*args,**kw):
-            print(args)
             user:User = User.query.get(kw['user_id'])
             if not user:
                 abort(404, 'Usuario não encontrado!')
             return f(*args,**kw, user=user)
-        print('ij')
         return capture_args
 
     @form_usuario.set_model_put(np_usuario)
