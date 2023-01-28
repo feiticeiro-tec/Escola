@@ -7,6 +7,7 @@ class Default():
     descricao = db.Column(db.Text)
     utc_c = db.Column(db.DateTime)
     utc_u = db.Column(db.DateTime)
+    db = db
 
     def __init__(self, *args, **kw):
         super().__init__(*args, **kw)
@@ -14,6 +15,10 @@ class Default():
 
     def save(self):
         self.utc_u = datetime.utcnow()
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
 
     def add(self):
