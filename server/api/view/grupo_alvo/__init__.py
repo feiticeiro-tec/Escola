@@ -64,4 +64,5 @@ class GrupoAlvoUser(Resource):
     @valdiate_grupo_alvo_user_path
     def delete(self, grupo_alvo_user_id, grupo_alvo_user):
         """Deve Remove o Usuario do Grupo"""
-        ...
+        grupo_alvo_user.delete()
+        return {}, 204
