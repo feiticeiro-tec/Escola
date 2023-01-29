@@ -18,7 +18,7 @@ class GrupoAlvo(Resource):
 
     @form_grupo_alvo.set_model_get(np_grupo_alvo)
     def get(self):
-        """Deve Retornar um grupo especifico ou todos os grupos"""
+        """Vai Retornar um grupo especifico ou todos os grupos"""
         grupo_alvo_id = form_grupo_alvo.get.parse_args()['grupo_alvo_id']
         grupos = {
             "grupo_alvo": [select_grupo_alvo(grupo_alvo_id)] if grupo_alvo_id else select_grupo_alvo()
@@ -27,7 +27,7 @@ class GrupoAlvo(Resource):
 
     @form_grupo_alvo.set_model_post(np_grupo_alvo)
     def post(self):
-        """Deve criar um novo grupo"""
+        """Vai criar um novo grupo"""
         data = form_grupo_alvo.post.parse_args()
         grupo = GA(**data)
         grupo.add()
@@ -37,7 +37,7 @@ class GrupoAlvo(Resource):
     @form_grupo_alvo.set_model_put(np_grupo_alvo)
     @valdiate_grupo_alvo_path
     def put(self, grupo_alvo_id, grupo_alvo: GA):
-        """Deve atualizar informacoes do grupo"""
+        """Vai atualizar informacoes do grupo"""
         data = form_grupo_alvo.put.parse_args()
         grupo_alvo.update(data)
         grupo_alvo.save()
@@ -45,7 +45,7 @@ class GrupoAlvo(Resource):
 
     @valdiate_grupo_alvo_path
     def delete(self, grupo_alvo_id, grupo_alvo: GA):
-        """Deve excluir o grupo"""
+        """Vai excluir o grupo"""
         grupo_alvo.delete()
         return {}, 204
 
@@ -56,13 +56,13 @@ class GrupoAlvoUser(Resource):
     @valdiate_grupo_alvo_path
     @validate_user
     def post(self, grupo_alvo_id, grupo_alvo, user):
-        """Deve Adicionar o Usuario no Grupo"""
+        """Vai Adicionar o Usuario no Grupo"""
         grupo = GAU(grupo_alvo_id=grupo_alvo_id, user_id=user.id)
         grupo.add()
         grupo.save()
 
     @valdiate_grupo_alvo_user_path
     def delete(self, grupo_alvo_user_id, grupo_alvo_user):
-        """Deve Remove o Usuario do Grupo"""
+        """Vai Remove o Usuario do Grupo"""
         grupo_alvo_user.delete()
         return {}, 204
