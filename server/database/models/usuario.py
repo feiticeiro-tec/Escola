@@ -6,7 +6,7 @@ class Usuario(db.Model, Default):
     __tablename__ = 'Usuario'
     email = db.Column(db.String(255), unique=True)
     senha = db.Column(db.String(255))
-    grupo_id = db.Column(db.Integer,db.ForeignKey('Grupo.id'))
+    grupo_id = db.Column(db.Integer, db.ForeignKey('Grupo.id'))
 
     primeiro_nome = db.Column(db.String(255))
     ultimo_nome = db.Column(db.String(255))
@@ -16,6 +16,7 @@ class Usuario(db.Model, Default):
     logradouro = db.Column(db.String(255))
     numero = db.Column(db.String(255))
 
+    grupo_alvo_users = db.relationship('GrupoAlvoUser', backref='Usuario')
 
     def __init__(self, email, senha, grupo_id):
         super().__init__(
@@ -23,7 +24,6 @@ class Usuario(db.Model, Default):
             grupo_id=int(grupo_id)
         )
         self.set_password(senha)
-    
 
     @staticmethod
     def login(email, senha):
@@ -36,19 +36,19 @@ class Usuario(db.Model, Default):
 
         return user
 
-    def set_password(self,senha):
+    def set_password(self, senha):
         self.senha = senha
 
     def check_password(self, senha):
         return self.senha == senha
-    
-    def update(self,data):
-        for key,valor in data.items():
+
+    def update(self, data):
+        for key, valor in data.items():
             if key == 'senha':
                 continue
             if valor:
-                setattr(self,key,valor)
-        
+                setattr(self, key, valor)
+
         senha = data.get('senha')
         if senha:
             self.senha = senha

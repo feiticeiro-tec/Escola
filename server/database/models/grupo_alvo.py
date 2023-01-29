@@ -4,6 +4,8 @@ from .default import db, Default
 class GrupoAlvo(db.Model, Default):
     __tablename__ = 'GrupoAlvo'
 
+    grupo_alvo_users = db.relationship('GrupoAlvoUser', backref='GrupoAlvo')
+
     def __init__(self, descricao):
         super().__init__(descricao=descricao)
 
