@@ -4,7 +4,8 @@ from server.api.form.grupo_alvo import FormGrupoAlvo
 from server.api.utils import select_grupo_alvo
 from flask import request
 from functools import wraps
-from server.database.models import GrupoAlvo as GA
+from server.api.decoradores import validate_user, valdiate_grupo_alvo_path
+from server.database.models import GrupoAlvo as GA, GrupoAlvoUser as GAU
 
 np_grupo_alvo = api.namespace('grupo_alvo')
 
@@ -14,15 +15,6 @@ form_grupo_alvo = FormGrupoAlvo()
 @np_grupo_alvo.route('/', methods=['GET', 'POST'])
 @np_grupo_alvo.route('/<int:grupo_alvo_id>', methods=['PUT', 'DELETE'])
 class GrupoAlvo(Resource):
-
-    def valdiate_grupo_alvo(f):
-        @wraps(f)
-        def capture_args(*args, **kw):
-            grupo_alvo = select_grupo_alvo(kw['grupo_alvo_id'])
-            if not grupo_alvo:
-                abort(404, 'Grupo alvo não encontrado!')
-            return f(*args, **kw, grupo_alvo=grupo_alvo)
-        return capture_args
 
     @form_grupo_alvo.set_model_get(np_grupo_alvo)
     def get(self):
@@ -43,7 +35,7 @@ class GrupoAlvo(Resource):
         return marshal(grupo, form_grupo_alvo.model)
 
     @form_grupo_alvo.set_model_put(np_grupo_alvo)
-    @valdiate_grupo_alvo
+    @valdiate_grupo_alvo_path
     def put(self, grupo_alvo_id, grupo_alvo: GA):
         """Deve atualizar informacoes do grupo"""
         data = form_grupo_alvo.put.parse_args()
@@ -51,19 +43,24 @@ class GrupoAlvo(Resource):
         grupo_alvo.save()
         return marshal(grupo_alvo, form_grupo_alvo.model)
 
-    @valdiate_grupo_alvo
+    @valdiate_grupo_alvo_path
     def delete(self, grupo_alvo_id, grupo_alvo: GA):
         """Deve excluir o grupo"""
         grupo_alvo.delete()
         return {}, 204
 
 
-@np_grupo_alvo.route('/<int:grupo_alvo_id>/<int:user_id>', methods=['POST', 'DELETE'])
+@np_grupo_alvo.route('/<int:grupo_alvo_id>', methods=['POST'])
+@np_grupo_alvo.route('/<int:grupo_alvo_user_id>', methods=['DELETE'])
 class GrupoAlvoUser(Resource):
-    def post(self, grupo_alvo_id, user_id):
+    @valdiate_grupo_alvo_path
+    @validate_user
+    def post(self, grupo_alvo_id, grupo_alvo, user):
         """Deve Adicionar o Usuario no Grupo"""
-        ...
+        grupo = GAU(grupo_alvo_id=grupo_alvo_id, user_id=user.id)
+        grupo.add()
+        grupo.save()
 
-    def delete(self, grupo_alvo_id, user_id):
+    def delete(self, grupo_alvo_user_id):
         """Deve Remove o Usuario do Grupo"""
         ...
