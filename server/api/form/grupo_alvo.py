@@ -8,6 +8,9 @@ class FormGrupoAlvo(GenericModel):
         'id': fields.Integer,
         'descricao': fields.String
     })
+    model_list = api.model('GropoAlvoList', {
+        "grupo_alvo": fields.List(fields.Nested(model))
+    })
 
     @property
     def get(self):
