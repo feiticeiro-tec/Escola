@@ -4,7 +4,7 @@ from server.api.form.grupo_alvo import FormGrupoAlvo
 from server.api.utils import select_grupo_alvo
 from flask import request
 from functools import wraps
-from server.api.decoradores import validate_user, valdiate_grupo_alvo_path
+from server.api.decoradores import validate_user, valdiate_grupo_alvo_path, valdiate_grupo_alvo_user_path
 from server.database.models import GrupoAlvo as GA, GrupoAlvoUser as GAU
 
 np_grupo_alvo = api.namespace('grupo_alvo')
@@ -61,6 +61,7 @@ class GrupoAlvoUser(Resource):
         grupo.add()
         grupo.save()
 
-    def delete(self, grupo_alvo_user_id):
+    @valdiate_grupo_alvo_user_path
+    def delete(self, grupo_alvo_user_id, grupo_alvo_user):
         """Deve Remove o Usuario do Grupo"""
         ...
