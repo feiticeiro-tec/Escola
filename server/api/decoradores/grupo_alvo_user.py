@@ -7,19 +7,19 @@ from flask_restx import abort
 def valdiate_grupo_alvo_user_path(f):
     @wraps(f)
     def capture_args(*args, **kw):
-        grupo_alvo = select_grupo_alvo_user(kw['grupo_alvo_user'])
-        if not grupo_alvo:
+        grupo_alvo_user = select_grupo_alvo_user(kw['grupo_alvo_user'])
+        if not grupo_alvo_user:
             abort(404, 'Grupo alvo não encontrado!')
-        return f(*args, **kw, grupo_alvo=grupo_alvo)
+        return f(*args, **kw, grupo_alvo_user=grupo_alvo_user)
     return capture_args
 
 
 def valdiate_grupo_alvo_user(f):
     @wraps(f)
     def capture_args(*args, **kw):
-        grupo_alvo = select_grupo_alvo_user(
+        grupo_alvo_user = select_grupo_alvo_user(
             request.values.get('grupo_alvo_user'))
-        if not grupo_alvo:
+        if not grupo_alvo_user:
             abort(404, 'Grupo alvo não encontrado!')
-        return f(*args, **kw, grupo_alvo=grupo_alvo)
+        return f(*args, **kw, grupo_alvo_user=grupo_alvo_user)
     return capture_args
