@@ -102,10 +102,10 @@ O method é uma total presunção minha e sem conhecimento previo da existencia 
 > Terá os grupos basicos porém tambem será possivel criar grupos expecificos de forma **dinamica**.  
 > Os grupos base são imutaveis.  
 
-- [ ] GET
-- [ ] POST
-- [ ] PUT
-- [ ] DELETE
+- [x] GET
+- [x] POST
+- [x] PUT
+- [x] DELETE
 
 ## *NOTÍCIA*
 
