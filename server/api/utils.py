@@ -1,4 +1,4 @@
-from ..database.models import Grupo, Usuario, GrupoAlvo
+from ..database.models import Grupo, Usuario, GrupoAlvo, GrupoAlvoUser
 
 
 def select_grupos(id=None):
@@ -15,3 +15,9 @@ def select_grupo_alvo(id=None):
     if id:
         return GrupoAlvo.query.get(id)
     return GrupoAlvo.query.all()
+
+
+def select_grupo_alvo_user(id=None):
+    if id:
+        return GrupoAlvoUser.query.get(id)
+    return GrupoAlvoUser.query.all()
