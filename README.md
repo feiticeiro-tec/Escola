@@ -27,11 +27,11 @@ O method é uma total presunção minha e sem conhecimento previo da existencia 
 
 ###### **ROTAS**
 
-- [ ] GET
-- [ ] Registro
-- [ ] Login
+- [x] GET
+- [x] Registro
+- [x] Login
 - [ ] Recuperação de conta
-- [ ] Edição de perfil
+- [x] Edição de perfil
 
 ## *GRUPO*
 
@@ -43,10 +43,10 @@ O method é uma total presunção minha e sem conhecimento previo da existencia 
 
 ###### **ROTAS**
 
-- [ ] GET
-- [ ] POST
-- [ ] PUT 
-- [ ] DELETE
+- [x] GET
+- [x] POST
+- [x] PUT 
+- [x] DELETE
 
 ## *TESTE*
 
